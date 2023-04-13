@@ -1,3 +1,7 @@
+# How to use Prisma
+
+Query data with prisma use typescript and express
+
 # REST API Example
 
 This example shows how to implement a **REST API with TypeScript** using [Express](https://expressjs.com/) and [Prisma Client](https://www.prisma.io/docs/concepts/components/prisma-client). The example uses an SQLite database file with some initial dummy data which you can find at [`./prisma/dev.db`](./prisma/dev.db).
@@ -46,7 +50,6 @@ npx prisma migrate dev --name init
 
 When `npx prisma migrate dev` is executed against a newly created database, seeding is also triggered. The seed file in [`prisma/seed.ts`](./prisma/seed.ts) will be executed and your database will be populated with the sample data.
 
-
 ### 3. Start the REST API server
 
 ```
@@ -70,6 +73,7 @@ You can access the REST API of the server using the following endpoints:
     - `orderBy` (optional): The sort order for posts in either ascending or descending order. The value can either `asc` or `desc`
 - `/user/:id/drafts`: Fetch user's drafts by their `id`
 - `/users`: Fetch all users
+
 ### `POST`
 
 - `/post`: Create a new post
@@ -91,7 +95,6 @@ You can access the REST API of the server using the following endpoints:
 ### `DELETE`
 
 - `/post/:id`: Delete a post by its `id`
-
 
 ## Evolving the app
 
@@ -163,10 +166,10 @@ app.post('/user/:id/profile', async (req, res) => {
       bio,
       user: {
         connect: {
-          id: Number(id)
-        }
-      }
-    }
+          id: Number(id),
+        },
+      },
+    },
   })
 
   res.json(profile)
@@ -182,7 +185,6 @@ Restart your application server and test out your new endpoint.
 - `/user/:id/profile`: Create a new profile based on the user id
   - Body:
     - `bio: String` : The bio of the user
-
 
 <details><summary>Expand to view more sample Prisma Client queries on <code>Profile</code></summary>
 
@@ -236,7 +238,7 @@ const userWithUpdatedProfile = await prisma.user.update({
 
 ## Switch to another database (e.g. PostgreSQL, MySQL, SQL Server, MongoDB)
 
-If you want to try this example with another database than SQLite, you can adjust the the database connection in [`prisma/schema.prisma`](./prisma/schema.prisma) by reconfiguring the `datasource` block. 
+If you want to try this example with another database than SQLite, you can adjust the the database connection in [`prisma/schema.prisma`](./prisma/schema.prisma) by reconfiguring the `datasource` block.
 
 Learn more about the different connection configurations in the [docs](https://www.prisma.io/docs/reference/database-reference/connection-urls).
 
